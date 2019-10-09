@@ -1,61 +1,64 @@
-#include <iostream>
-#include <fstream>
-#define FIN "inversmodular.in"
-#define FOUT "inversmodular.out"
+#include<bits/stdc++.h>
+#define ll long long
+#define lb long double
+#define mp make_pair
+#define pb push_back
+#define loop(i,start,n) for(i=start;i<n;i++)
+#define rloop(i,n,start)for(i=n;i>=start;i--)
+#define mod 1000000007
+#define endl "\n"
+#define INF     1000000000
+#define NEG_INF -1000000000
+#define pll pair<ll,ll>
+#define x first
+#define y second
+#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define trace1(x)                cerr << #x << ": " << x << "\n";
+#define trace2(x, y)             cerr << #x << ": " << x << " | " << #y << ": " << y << "\n";
+#define trace3(x, y, z)          cerr << #x << ": " << x << " | " << #y << ": " << y << " | " << #z << ": " << z << "\n";
+#define trace4(a, b, c, d)       cerr << #a << ": " << a << " | " << #b << ": " << b << " | " << #c << ": " << c << " | " << #d << ": " << d << "\n";
 
-struct pair {
+using namespace std;
 
-       long x, 
-            y;  
-
-       pair(long _x, long _y): x(_x), y(_y) {}
-};
-
-pair euclid_extended(long a, long b) {
-
-     pair prev(1,0); 
-     pair curr(0,1);
-     
-     long q, r;
-
-     while(b) {
-      
-       q = a / b;
-       r = a % b;
-
-       pair old = curr;
- 
-       curr.x = prev.x - q * curr.x;
-       curr.y = prev.y - q * curr.y;
-
-       prev = old;
-
-       a = b;
-       b = r;  
-     }       
-
-     return prev; 
- 
-};
-
-
-int main(int argc, char *argv[]) {
-
-    std::ifstream fin(FIN); 
-    std::ofstream fout(FOUT); 
-
-    unsigned long a, 
-                  n;
-
-    fin>>a>>n; 
-
-    pair sol = euclid_extended(a, n);
-
-    fout << ((sol.x > 0) ? (sol.x) : (n + sol.x));
-     
-
- return(0);
-
-}
+ll modInverse(ll a, ll m) 
+{ 
+    ll x, y; 
+    ll g = gcdExtended(a, m, &x, &y); 
+    if (g != 1) 
+        cout << "Inverse doesn't exist"; 
+    else
+    { 
+         
+        ll res = (x%m + m) % m; 
+        return res; 
+    } 
+} 
+  
+// C function for extended Euclidean Algorithm 
+ll gcdExtended(ll a, ll b, ll *x, ll *y) 
+{ 
+    // Base Case 
+    if (a == 0) 
+    { 
+        *x = 0, *y = 1; 
+        return b; 
+    } 
+  
+    ll x1, y1; // To store results of recursive call 
+    ll gcd = gcdExtended(b%a, a, &x1, &y1); 
+  
+    // Update x and y using results of recursive 
+    // call 
+    *x = y1 - (b/a) * x1; 
+    *y = x1; 
+  
+    return gcd; 
+} 
 
 
+int main()
+{
+       IOS;
+       ll a=modInverse(10,1000000007) //sample
+       cout<<a<<endl;
+}       
